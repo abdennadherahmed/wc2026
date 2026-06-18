@@ -7,58 +7,41 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --green: #1D9E75; --green-dark: #0F6E56; --green-light: #E1F5EE; --green-mid: #9FE1CB;
+    --green: #1D9E75; --green-dark: #0F6E56; --green-light: #E1F5EE;
     --text: #1a1a1a; --text-sec: #666; --text-hint: #999;
     --bg: #f5f5f0; --bg-card: #fff; --border: rgba(0,0,0,0.12);
     --radius: 10px; --radius-lg: 14px;
   }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
   .app { max-width: 700px; margin: 0 auto; padding: 1rem; }
-
-  /* TOP BAR */
-  .topbar { background: var(--green-dark); color: #fff; padding: 0; margin: -1rem -1rem 1.25rem; border-radius: 0; }
+  .topbar { background: var(--green-dark); color: #fff; margin: -1rem -1rem 1.25rem; }
   .topbar-inner { max-width: 700px; margin: 0 auto; padding: 14px 1rem; display: flex; align-items: center; justify-content: space-between; }
   .topbar-title { font-size: 17px; font-weight: 600; }
   .topbar-sub { font-size: 12px; opacity: 0.75; margin-top: 1px; }
-
-  /* LOGIN */
   .login-wrap { max-width: 360px; margin: 3rem auto; text-align: center; background: var(--bg-card); border-radius: var(--radius-lg); padding: 2rem 1.5rem; border: 1px solid var(--border); }
   .login-wrap .ball { font-size: 52px; margin-bottom: 1rem; }
   .login-wrap h1 { font-size: 20px; font-weight: 600; margin-bottom: 0.4rem; }
   .login-wrap .sub { font-size: 14px; color: var(--text-sec); margin-bottom: 1.5rem; }
   .login-wrap .hint { font-size: 12px; color: var(--text-hint); margin-top: 0.75rem; }
-  input[type=text], input[type=number] {
-    width: 100%; font-size: 16px; padding: 11px 14px; border: 1px solid var(--border);
-    border-radius: var(--radius); background: #fff; color: var(--text); outline: none;
-  }
+  input[type=text], input[type=number] { width: 100%; font-size: 16px; padding: 11px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: #fff; color: var(--text); outline: none; }
   input[type=text]:focus, input[type=number]:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,0.15); }
-  .btn-primary { width: 100%; margin-top: 10px; padding: 12px; font-size: 15px; font-weight: 600; background: var(--green); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.15s; }
+  .btn-primary { width: 100%; margin-top: 10px; padding: 12px; font-size: 15px; font-weight: 600; background: var(--green); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; }
   .btn-primary:hover { background: var(--green-dark); }
-
-  /* HEADER */
   .header-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
   .user-row { display: flex; align-items: center; gap: 10px; }
   .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: var(--green-dark); }
-  .username { font-size: 15px; font-weight: 600; }
+  .avatar.admin-av { background: #FAEEDA; color: #854F0B; }
   .balance-pill { background: var(--green-light); color: var(--green-dark); padding: 5px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; }
   .btn-logout { padding: 6px 12px; font-size: 13px; background: transparent; border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; color: var(--text-sec); }
-  .btn-logout:hover { background: #eee; }
-
-  /* TABS */
   .tab-bar { display: flex; gap: 6px; margin-bottom: 1rem; background: var(--bg-card); padding: 6px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
-  .tab { flex: 1; padding: 9px 6px; font-size: 14px; font-weight: 500; border: none; border-radius: var(--radius); background: transparent; color: var(--text-sec); cursor: pointer; transition: all 0.15s; }
+  .tab { flex: 1; padding: 9px 6px; font-size: 13px; font-weight: 500; border: none; border-radius: var(--radius); background: transparent; color: var(--text-sec); cursor: pointer; transition: all 0.15s; }
   .tab.active { background: var(--green); color: #fff; }
-
-  /* PAGES */
+  .tab.admin-tab.active { background: #BA7517; }
   .page { display: none; }
   .page.active { display: block; }
-
-  /* FILTERS */
   .filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-  .filter-btn { padding: 6px 13px; font-size: 13px; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; background: #fff; color: var(--text-sec); transition: all 0.15s; }
+  .filter-btn { padding: 6px 13px; font-size: 13px; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; background: #fff; color: var(--text-sec); }
   .filter-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
-
-  /* MATCH CARD */
   .match-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 10px; }
   .match-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
   .match-meta { font-size: 12px; color: var(--text-hint); }
@@ -67,109 +50,109 @@
   .badge-ft { background: #EAF3DE; color: #3B6D11; }
   .badge-sched { background: #f0f0ea; color: #888; }
   .badge-group { background: #f0f0ea; color: #666; }
-
-  .teams-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .teams-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
   .team-block { flex: 1; text-align: center; }
-  .team-flag { font-size: 32px; line-height: 1.2; }
-  .team-name { font-size: 12px; font-weight: 500; margin-top: 3px; }
-  .vs-block { text-align: center; min-width: 60px; }
-  .vs-block .score { font-size: 24px; font-weight: 700; }
+  .team-flag { font-size: 38px; line-height: 1.2; }
+  .team-name { font-size: 12px; font-weight: 600; margin-top: 4px; color: var(--text-sec); }
+  .vs-block { text-align: center; min-width: 64px; }
+  .vs-block .score { font-size: 26px; font-weight: 800; }
   .vs-block .vs { font-size: 14px; color: var(--text-sec); }
 
-  /* BET SECTION */
-  .bet-section { border-top: 1px solid var(--border); padding-top: 12px; }
-  .bet-choices { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
-  .bet-choice { flex: 1; min-width: 80px; }
-  .bet-choice label { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 13px; cursor: pointer; padding: 8px 6px; border: 1px solid var(--border); border-radius: var(--radius); text-align: center; line-height: 1.3; transition: all 0.12s; }
-  .bet-choice label:hover { border-color: var(--green); }
-  .bet-choice input[type=radio] { display: none; }
-  .bet-choice input[type=radio]:checked + label { border-color: var(--green); background: var(--green-light); color: var(--green-dark); font-weight: 600; }
-  .bet-row-bottom { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  input.bet-amount { width: 80px; font-size: 14px; padding: 8px 10px; }
-  .btn-bet { padding: 8px 18px; font-size: 14px; font-weight: 600; background: var(--green); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.15s; }
-  .btn-bet:hover { background: var(--green-dark); }
-  .btn-bet:disabled { background: var(--green-mid); cursor: not-allowed; }
-  .bet-hint { font-size: 12px; color: var(--text-hint); }
+  /* COTES */
+  .odds-row { display: flex; gap: 6px; margin-bottom: 10px; }
+  .odds-btn { flex: 1; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 8px 6px; cursor: pointer; background: #fff; text-align: center; transition: all 0.15s; position: relative; }
+  .odds-btn:hover { border-color: var(--green); background: #f8fdfb; }
+  .odds-btn.selected { border-color: var(--green); background: var(--green-light); }
+  .odds-btn.selected .odds-val { color: var(--green-dark); }
+  .odds-label { font-size: 11px; color: var(--text-sec); margin-bottom: 3px; display: flex; align-items: center; justify-content: center; gap: 3px; }
+  .odds-flag { font-size: 16px; }
+  .odds-val { font-size: 18px; font-weight: 800; color: #1a1a1a; letter-spacing: -0.5px; }
+  .odds-trend { font-size: 10px; position: absolute; top: 5px; right: 7px; }
+  .odds-bar { height: 3px; border-radius: 2px; margin-top: 5px; background: #eee; overflow: hidden; }
+  .odds-bar-fill { height: 100%; border-radius: 2px; background: var(--green); transition: width 0.4s; }
 
+  .bet-bottom { border-top: 1px solid var(--border); padding-top: 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  input.bet-amount { width: 80px; font-size: 14px; padding: 8px 10px; }
+  .btn-bet { padding: 8px 18px; font-size: 14px; font-weight: 600; background: var(--green); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; }
+  .btn-bet:hover { background: var(--green-dark); }
+  .gain-preview { font-size: 13px; color: var(--text-sec); }
+  .gain-preview strong { color: var(--green-dark); }
   .my-bet-tag { display: inline-block; font-size: 13px; padding: 5px 12px; border-radius: var(--radius); font-weight: 500; }
   .tag-pending { background: #FAEEDA; color: #633806; }
   .tag-won { background: #EAF3DE; color: #3B6D11; }
   .tag-lost { background: #FCEBEB; color: #A32D2D; }
-
-  /* ALERT */
   .alert { padding: 10px 14px; border-radius: var(--radius); font-size: 13px; margin-bottom: 10px; }
   .alert-success { background: #EAF3DE; color: #3B6D11; }
   .alert-error { background: #FCEBEB; color: #A32D2D; }
-
-  /* RANKING */
   .rank-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); }
   .rank-table th { padding: 10px 14px; text-align: left; font-size: 12px; font-weight: 600; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.04em; background: #f8f8f4; border-bottom: 1px solid var(--border); }
   .rank-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 14px; }
   .rank-table tr:last-child td { border-bottom: none; }
   .rank-table tr.rank-me td { background: var(--green-light); }
   .rank-balance { font-weight: 700; color: var(--green-dark); }
-
-  /* MY BETS */
-  .bet-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 8px; }
-
-  /* MISC */
+  .admin-banner { background: #FAEEDA; border: 1px solid #FAC775; border-radius: var(--radius-lg); padding: 12px 16px; margin-bottom: 1rem; font-size: 14px; color: #633806; font-weight: 500; }
+  .admin-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 10px; }
+  .admin-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+  .admin-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+  .admin-row:last-child { border-bottom: none; }
+  .admin-player { display: flex; align-items: center; gap: 10px; }
+  .admin-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--green-dark); flex-shrink: 0; }
+  .admin-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .admin-bal-input { width: 90px; padding: 6px 10px; font-size: 13px; border: 1px solid var(--border); border-radius: var(--radius); }
+  .btn-admin-save { padding: 6px 14px; font-size: 13px; font-weight: 600; background: #BA7517; color: #fff; border: none; border-radius: var(--radius); cursor: pointer; }
+  .btn-admin-reset { padding: 6px 12px; font-size: 13px; background: transparent; border: 1px solid #F09595; color: #A32D2D; border-radius: var(--radius); cursor: pointer; }
+  .btn-admin-del { padding: 6px 10px; font-size: 13px; background: transparent; border: 1px solid #F09595; color: #A32D2D; border-radius: var(--radius); cursor: pointer; }
   .loading { text-align: center; padding: 2rem; color: var(--text-sec); font-size: 14px; }
   .empty { text-align: center; padding: 2.5rem 1rem; color: var(--text-hint); font-size: 14px; }
   .api-note { text-align: center; font-size: 11px; color: var(--text-hint); margin-top: 1rem; }
   .section-label { font-size: 12px; font-weight: 600; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
-  .odds-hint { font-size: 11px; color: var(--text-hint); margin-left: 4px; }
+  .bet-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 8px; }
+  .odds-info { font-size: 11px; color: var(--text-hint); text-align: center; margin-bottom: 8px; }
 </style>
 </head>
 <body>
-
 <div class="topbar">
   <div class="topbar-inner">
     <div>
       <div class="topbar-title">⚽ Pronos CDM 2026</div>
-      <div class="topbar-sub">Cabinet GCIC — 1000 pts de départ par joueur</div>
+      <div class="topbar-sub">Cabinet GCIC — Cotes dynamiques · 1000 pts de départ</div>
     </div>
-    <div id="topbar-live" style="display:none; font-size:12px; background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:20px;">🔴 Matchs en direct</div>
+    <div id="topbar-live" style="display:none;font-size:12px;background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:20px;">🔴 En direct</div>
   </div>
 </div>
-
 <div class="app">
 
-  <!-- LOGIN -->
   <div id="login-page" class="page active">
     <div class="login-wrap">
       <div class="ball">⚽</div>
       <h1>Pronos Coupe du Monde 2026</h1>
       <p class="sub">Entre ton prénom pour rejoindre le jeu du cabinet</p>
-      <input type="text" id="login-input" placeholder="Ton prénom..." autocomplete="off" />
+      <input type="text" id="login-input" placeholder="Ton prénom..." autocomplete="off"/>
       <button class="btn-primary" onclick="doLogin()">Entrer →</button>
       <p class="hint">Ahmed = ahmed = AHMED — insensible à la casse</p>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div id="main-page" class="page">
-
     <div class="header-bar">
       <div class="user-row">
         <div class="avatar" id="hdr-avatar">A</div>
         <div>
-          <div class="username" id="hdr-name">Ahmed</div>
-          <div style="font-size:12px; color:var(--text-hint)">Cabinet GCIC</div>
+          <div class="username" id="hdr-name" style="font-size:15px;font-weight:600">Ahmed</div>
+          <div style="font-size:12px;color:var(--text-hint)" id="hdr-sub">Cabinet GCIC</div>
         </div>
       </div>
-      <div style="display:flex; gap:8px; align-items:center;">
-        <div class="balance-pill">💰 <span id="hdr-balance">1000</span> pts</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <div class="balance-pill" id="hdr-balance-wrap">💰 <span id="hdr-balance">1000</span> pts</div>
         <button class="btn-logout" onclick="doLogout()">Quitter</button>
       </div>
     </div>
-
-    <div class="tab-bar">
+    <div class="tab-bar" id="tab-bar">
       <button class="tab active" onclick="showTab('matches')">⚽ Matchs</button>
       <button class="tab" onclick="showTab('mybets')">🎯 Mes paris</button>
       <button class="tab" onclick="showTab('ranking')">🏆 Classement</button>
     </div>
 
-    <!-- TAB MATCHS -->
     <div id="tab-matches" class="page active">
       <div id="alert-zone"></div>
       <div class="filter-row">
@@ -178,29 +161,65 @@
         <button class="filter-btn" onclick="setFilter('upcoming',this)">Prochains</button>
         <button class="filter-btn" onclick="setFilter('done',this)">Terminés</button>
       </div>
-      <div id="matches-list"><div class="loading">⏳ Connexion aux données FIFA 2026...</div></div>
-      <div class="api-note">Données live · wc2026api.com · Mise à jour automatique</div>
+      <div id="matches-list"><div class="loading">⏳ Chargement des matchs CDM 2026...</div></div>
+      <div class="api-note">Données · openfootball/worldcup.json · Cotes dynamiques basées classement FIFA</div>
     </div>
 
-    <!-- TAB MES PARIS -->
     <div id="tab-mybets" class="page">
       <div class="section-label">Mes paris</div>
       <div id="mybets-list"></div>
     </div>
 
-    <!-- TAB CLASSEMENT -->
     <div id="tab-ranking" class="page">
       <div class="section-label">Classement général</div>
       <div id="ranking-list"></div>
     </div>
 
+    <div id="tab-admin" class="page">
+      <div class="admin-banner">⚙️ Mode Administrateur — Cabinet GCIC</div>
+      <div class="admin-card">
+        <h3>👥 Gérer les joueurs</h3>
+        <div id="admin-players-list"><div class="loading">Chargement...</div></div>
+      </div>
+      <div class="admin-card">
+        <h3>🎁 Bonus groupé</h3>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span style="font-size:13px;color:var(--text-sec)">Ajouter</span>
+          <input type="number" id="bonus-amount" value="100" min="1" style="width:90px;padding:6px 10px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius)">
+          <span style="font-size:13px;color:var(--text-sec)">pts à</span>
+          <select id="bonus-target" style="padding:6px 10px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius);background:#fff">
+            <option value="all">Tous les joueurs</option>
+          </select>
+          <button class="btn-admin-save" onclick="applyBonus()">Appliquer</button>
+        </div>
+      </div>
+      <div id="admin-alert" style="margin-top:10px"></div>
+    </div>
   </div>
 </div>
 
 <script>
-const API_KEY = 'wc2026_free_pqhiT0pDJGm5EXnZ';
-const API_BASE = 'https://api.wc2026api.com';
-const STORE = 'wc2026_gcic_v2';
+const DATA_URL = 'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
+const STORE = 'wc2026_gcic_v5';
+const ADMIN_PWD = 'SUPERADMIN';
+const MARGIN = 0.05; // marge bookmaker 5%
+
+// Classement FIFA réel (points approximatifs, utilisés pour calculer les cotes de base)
+const FIFA_RANK = {
+  'Argentina':1,'France':2,'Spain':3,'England':4,'Brazil':5,'Portugal':6,
+  'Belgium':7,'Netherlands':8,'Germany':9,'Uruguay':10,'Colombia':11,
+  'Morocco':12,'Switzerland':13,'Croatia':14,'Italy':15,'USA':16,
+  'Mexico':17,'Senegal':18,'Denmark':19,'Ecuador':20,'South Korea':21,
+  'Canada':22,'Japan':23,'Norway':24,'Turkey':25,'Poland':26,
+  'Serbia':27,'Australia':28,'Ukraine':29,'Hungary':30,'Austria':31,
+  'Sweden':32,"Côte d'Ivoire":33,'Ivory Coast':33,'Algeria':34,'Nigeria':35,
+  'Slovakia':36,'Chile':37,'Tunisia':38,'Egypt':39,'Iran':40,
+  'Saudi Arabia':41,'Peru':42,'Venezuela':43,'Bolivia':44,'Paraguay':45,
+  'Panama':46,'Ghana':47,'South Africa':48,'Cameroon':49,'Congo DR':50,
+  'Iraq':51,'New Zealand':52,'Uzbekistan':53,'Kenya':54,'Bolivia':55,
+  "Curaçao":56,'Czech Republic':20,'Czechia':20,
+  'Bosnia & Herzegovina':35,'Bosnia-Herzegovina':35,'Bosnia and Herzegovina':35,
+};
 
 const FLAGS = {
   'Mexico':'🇲🇽','South Africa':'🇿🇦','South Korea':'🇰🇷','Czechia':'🇨🇿','Czech Republic':'🇨🇿',
@@ -211,145 +230,272 @@ const FLAGS = {
   'Brazil':'🇧🇷','Congo DR':'🇨🇩','England':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Senegal':'🇸🇳','Serbia':'🇷🇸',
   'Turkey':'🇹🇷','Canada':'🇨🇦','Denmark':'🇩🇰','China':'🇨🇳','Uzbekistan':'🇺🇿',
   'France':'🇫🇷','Norway':'🇳🇴','Italy':'🇮🇹','Ecuador':'🇪🇨','Germany':'🇩🇪',
-  'Curaçao':'🇨🇼','Ivory Coast':'🇨🇮','Belgium':'🇧🇪','Egypt':'🇪🇬','Iran':'🇮🇷',
+  "Curaçao":'🇨🇼',"Côte d'Ivoire":'🇨🇮','Ivory Coast':'🇨🇮','Belgium':'🇧🇪','Egypt':'🇪🇬','Iran':'🇮🇷',
   'New Zealand':'🇳🇿','Croatia':'🇭🇷','Chile':'🇨🇱','Nigeria':'🇳🇬','Uruguay':'🇺🇾',
   'Switzerland':'🇨🇭','Venezuela':'🇻🇪','Paraguay':'🇵🇾','Peru':'🇵🇪','Kenya':'🇰🇪',
-  'Ghana':'🇬🇭','Algeria':'🇩🇿','Tunisia':'🇹🇳','Bosnia-Herzegovina':'🇧🇦',
+  'Ghana':'🇬🇭','Algeria':'🇩🇿','Tunisia':'🇹🇳',
+  'Bosnia & Herzegovina':'🇧🇦','Bosnia-Herzegovina':'🇧🇦','Bosnia and Herzegovina':'🇧🇦',
 };
 const f = n => FLAGS[n] || '🏳️';
+const rank = n => FIFA_RANK[n] || 40;
 
+// ── CALCUL DES COTES ──────────────────────────────────────────────────────────
+// 1. Probabilités de base à partir du classement FIFA
+// 2. Ajustement dynamique selon les mises placées par les collègues
+// 3. Marge bookmaker appliquée
+
+function baseProbs(home, away) {
+  // Score de force basé sur classement (rang 1 = meilleur)
+  const rH = rank(home), rA = rank(away);
+  const sH = 1 / rH, sA = 1 / rA;
+  const total = sH + sA;
+  // Probabilité victoire : plus on est haut classé, plus c'est élevé
+  // Nul : plus les équipes sont proches, plus le nul est probable
+  const diff = Math.abs(rH - rA);
+  const drawBase = 0.27 - diff * 0.003; // entre 0.20 et 0.27
+  const draw = Math.max(0.18, Math.min(0.30, drawBase));
+  const rem = 1 - draw;
+  const pH = (sH / total) * rem;
+  const pA = (sA / total) * rem;
+  return { pH, pD: draw, pA };
+}
+
+function dynamicOdds(matchId, home, away) {
+  // Récupère les mises déjà placées sur ce match (tous joueurs)
+  const betsByChoice = { home: 0, draw: 0, away: 0 };
+  Object.values(state.users).forEach(u => {
+    const b = u.bets[String(matchId)];
+    if (b && b.result === 'pending') betsByChoice[b.choice] += b.amount;
+  });
+  const totalBets = betsByChoice.home + betsByChoice.draw + betsByChoice.away;
+
+  let { pH, pD, pA } = baseProbs(home, away);
+
+  // Ajustement dynamique : si beaucoup de mises sur un côté → cote baisse
+  if (totalBets > 0) {
+    const wH = betsByChoice.home / totalBets;
+    const wD = betsByChoice.draw / totalBets;
+    const wA = betsByChoice.away / totalBets;
+    const alpha = Math.min(0.25, totalBets / 2000); // influence max 25%
+    pH = pH * (1 - alpha) + (pH + wH * alpha);
+    pD = pD * (1 - alpha) + (pD + wD * alpha);
+    pA = pA * (1 - alpha) + (pA + wA * alpha);
+    // renormaliser
+    const s = pH + pD + pA;
+    pH /= s; pD /= s; pA /= s;
+  }
+
+  // Appliquer marge bookmaker (5%)
+  const factor = 1 / (1 - MARGIN);
+  const oH = Math.round((1 / pH) * factor * 100) / 100;
+  const oD = Math.round((1 / pD) * factor * 100) / 100;
+  const oA = Math.round((1 / pA) * factor * 100) / 100;
+
+  // Calcul % implicite pour les barres de progression (sans marge)
+  const pHpct = Math.round(pH * 100);
+  const pDpct = Math.round(pD * 100);
+  const pApct = Math.round(pA * 100);
+
+  return { oH, oD, oA, pHpct, pDpct, pApct, betsByChoice };
+}
+
+// ── STATE & STORAGE ──────────────────────────────────────────────────────────
 let state = { users: {}, currentUser: null };
 let matches = [];
 let filter = 'all';
+let isAdmin = false;
 
-function load() { try { state = JSON.parse(localStorage.getItem(STORE) || '{"users":{},"currentUser":null}'); } catch(e) { state = {users:{},currentUser:null}; } }
+function load() { try { state = JSON.parse(localStorage.getItem(STORE) || '{"users":{},"currentUser":null}'); } catch(e) { state={users:{},currentUser:null}; } }
 function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch(e) {} }
-
 const norm = s => s.trim().toLowerCase().replace(/^./, c => c.toUpperCase());
 
+function convertMatch(m, idx) {
+  const rawTime = (m.time||'00:00').replace(/\s*UTC[+-]\d+/,'');
+  const utcOffset = (m.time||'').match(/UTC([+-]\d+)/);
+  let kickoff = new Date(0);
+  if (m.date) {
+    const off = utcOffset ? parseInt(utcOffset[1]) : 0;
+    kickoff = new Date(m.date+'T'+rawTime+':00Z');
+    kickoff = new Date(kickoff.getTime() - off*3600000);
+  }
+  const hasScore = m.score && m.score.ft;
+  const hs = hasScore ? m.score.ft[0] : null;
+  const as = hasScore ? m.score.ft[1] : null;
+  const now = new Date(), mins = (now-kickoff)/60000;
+  let status='scheduled', phase='PRE';
+  if (hasScore) { status='finished'; phase='FT'; }
+  else if (mins>0 && mins<110) { status='live'; phase=mins<47?'1H':mins<60?'HT':'2H'; }
+  return { id:idx, home_team:m.team1, away_team:m.team2, home_score:hs, away_score:as,
+    kickoff_utc:kickoff.toISOString(), status, phase,
+    group_name: m.group?m.group.replace('Group ',''):'', round:m.round||'' };
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
 function doLogin() {
   const raw = document.getElementById('login-input').value.trim();
   if (!raw) return;
+  if (raw === ADMIN_PWD) { enterAdmin(); return; }
   const name = norm(raw);
-  if (!state.users[name]) state.users[name] = { balance: 1000, bets: {} };
-  state.currentUser = name; save(); showMain();
+  if (!state.users[name]) state.users[name] = { balance:1000, bets:{} };
+  state.currentUser = name; isAdmin = false; save(); showMain();
 }
 document.getElementById('login-input').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
 
+function enterAdmin() {
+  isAdmin=true; state.currentUser='__admin__'; save();
+  document.getElementById('login-page').classList.remove('active');
+  document.getElementById('main-page').classList.add('active');
+  document.getElementById('hdr-name').textContent='Administrateur';
+  document.getElementById('hdr-sub').textContent='⚙️ Mode Admin';
+  document.getElementById('hdr-avatar').textContent='⚙️';
+  document.getElementById('hdr-avatar').classList.add('admin-av');
+  document.getElementById('hdr-balance-wrap').style.display='none';
+  const bar = document.getElementById('tab-bar');
+  if (!document.getElementById('admin-tab-btn')) {
+    const btn=document.createElement('button');
+    btn.className='tab admin-tab'; btn.id='admin-tab-btn'; btn.textContent='⚙️ Admin';
+    btn.onclick=()=>showTab('admin'); bar.appendChild(btn);
+  }
+  showTab('admin'); fetchMatches();
+}
+
 function doLogout() {
-  state.currentUser = null; save();
+  isAdmin=false; state.currentUser=null; save();
   document.getElementById('main-page').classList.remove('active');
   document.getElementById('login-page').classList.add('active');
-  document.getElementById('login-input').value = '';
+  document.getElementById('login-input').value='';
+  document.getElementById('hdr-avatar').classList.remove('admin-av');
+  document.getElementById('hdr-balance-wrap').style.display='';
+  const aBtn=document.getElementById('admin-tab-btn'); if(aBtn) aBtn.remove();
 }
 
 function showMain() {
   document.getElementById('login-page').classList.remove('active');
   document.getElementById('main-page').classList.add('active');
-  const name = state.currentUser;
-  document.getElementById('hdr-name').textContent = name;
-  document.getElementById('hdr-avatar').textContent = name[0].toUpperCase();
+  const name=state.currentUser;
+  document.getElementById('hdr-name').textContent=name;
+  document.getElementById('hdr-avatar').textContent=name[0].toUpperCase();
   updateBalance(); showTab('matches'); fetchMatches();
 }
 
 function updateBalance() {
-  const u = state.users[state.currentUser];
-  if (u) document.getElementById('hdr-balance').textContent = u.balance;
+  if(isAdmin) return;
+  const u=state.users[state.currentUser];
+  if(u) document.getElementById('hdr-balance').textContent=u.balance;
 }
 
+const TABS=['matches','mybets','ranking','admin'];
 function showTab(t) {
-  ['matches','mybets','ranking'].forEach((tab, i) => {
-    document.getElementById('tab-'+tab).classList.toggle('active', tab===t);
-    document.querySelectorAll('.tab')[i].classList.toggle('active', tab===t);
+  TABS.forEach((tab,i)=>{
+    const p=document.getElementById('tab-'+tab); if(p) p.classList.toggle('active',tab===t);
+    const b=document.querySelectorAll('.tab')[i]; if(b) b.classList.toggle('active',tab===t);
   });
-  if (t==='mybets') renderMyBets();
-  if (t==='ranking') renderRanking();
+  if(t==='mybets') renderMyBets();
+  if(t==='ranking') renderRanking();
+  if(t==='admin') renderAdmin();
 }
 
 async function fetchMatches() {
   try {
-    const r = await fetch(`${API_BASE}/matches`, { headers: { Authorization: `Bearer ${API_KEY}` } });
-    if (!r.ok) throw new Error('HTTP '+r.status);
-    const data = await r.json();
-    matches = (Array.isArray(data) ? data : (data.matches||[])).sort((a,b)=>new Date(a.kickoff_utc)-new Date(b.kickoff_utc));
-    settleAll(); renderMatches();
-    const live = matches.filter(m=>['1H','HT','2H','ET1','ET2','PEN'].includes(m.phase));
-    document.getElementById('topbar-live').style.display = live.length ? 'block' : 'none';
+    const r=await fetch(DATA_URL);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const data=await r.json();
+    matches=(data.matches||[]).map((m,i)=>convertMatch(m,i));
+    matches.sort((a,b)=>new Date(a.kickoff_utc)-new Date(b.kickoff_utc));
+    if(!isAdmin) { settleAll(); renderMatches(); }
+    const live=matches.filter(m=>['1H','HT','2H'].includes(m.phase));
+    document.getElementById('topbar-live').style.display=live.length?'block':'none';
   } catch(e) {
-    document.getElementById('matches-list').innerHTML = `<div class="alert alert-error">Impossible de charger les matchs (${e.message}).<br>Vérifie ta connexion internet.</div>`;
+    if(!isAdmin) document.getElementById('matches-list').innerHTML=`<div class="alert alert-error">Erreur de chargement (${e.message}).</div>`;
   }
 }
 
-function isLive(m) { return ['1H','HT','2H','ET1','ET2','PEN'].includes(m.phase); }
-function isDone(m) { return m.status==='finished'||m.phase==='FT'||m.phase==='FT_PEN'; }
+const isLive = m=>['1H','HT','2H','ET1','ET2'].includes(m.phase);
+const isDone = m=>m.status==='finished'||m.phase==='FT';
 
-function setFilter(f2, btn) {
-  filter = f2;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active'); renderMatches();
+function setFilter(f2,btn) {
+  filter=f2; document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderMatches();
 }
 
+// ── RENDER MATCHES ────────────────────────────────────────────────────────────
 function renderMatches() {
-  const user = state.users[state.currentUser];
-  let list = matches;
-  if (filter==='live') list = matches.filter(isLive);
-  else if (filter==='upcoming') list = matches.filter(m=>!isDone(m)&&!isLive(m));
-  else if (filter==='done') list = matches.filter(isDone);
+  const user=state.users[state.currentUser]; if(!user) return;
+  let list=matches;
+  if(filter==='live') list=matches.filter(isLive);
+  else if(filter==='upcoming') list=matches.filter(m=>!isDone(m)&&!isLive(m));
+  else if(filter==='done') list=matches.filter(isDone);
+  if(!list.length){document.getElementById('matches-list').innerHTML='<div class="empty">Aucun match dans cette catégorie</div>';return;}
+  let html='';
+  list.slice(0,60).forEach(m=>{
+    const mid=String(m.id), myBet=user.bets[mid];
+    const live=isLive(m), done=isDone(m), canBet=!done&&!myBet;
+    const date=new Date(m.kickoff_utc);
+    const ds=date.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+    const ts=date.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+    const h=m.home_team, a=m.away_team;
+    const hs=m.home_score!=null?m.home_score:'-', as2=m.away_score!=null?m.away_score:'-';
+    const grp=m.group_name?`Groupe ${m.group_name}`:m.round;
+    const statusBadge=live?`<span class="badge badge-live">🔴 ${m.phase}</span>`:done?`<span class="badge badge-ft">✅ Terminé</span>`:`<span class="badge badge-sched">${ts}</span>`;
+    const scoreOrVs=(live||done)?`<div class="score">${hs} – ${as2}</div>`:`<div class="vs">vs</div>`;
 
-  if (!list.length) { document.getElementById('matches-list').innerHTML = '<div class="empty">Aucun match dans cette catégorie</div>'; return; }
+    // Cotes dynamiques
+    const odds=dynamicOdds(mid,h,a);
+    const { oH,oD,oA,pHpct,pDpct,pApct,betsByChoice } = odds;
+    const totalMises=betsByChoice.home+betsByChoice.draw+betsByChoice.away;
 
-  let html = '';
-  list.slice(0,50).forEach(m => {
-    const mid = String(m.id);
-    const myBet = user.bets[mid];
-    const live = isLive(m), done = isDone(m);
-    const canBet = !done && !myBet;
-    const date = new Date(m.kickoff_utc);
-    const ds = date.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
-    const ts = date.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-    const h = m.home_team, a = m.away_team;
-    const hs = m.home_score!=null?m.home_score:'-', as = m.away_score!=null?m.away_score:'-';
-
-    let statusBadge = live
-      ? `<span class="badge badge-live">🔴 ${m.phase}</span>`
-      : done
-        ? `<span class="badge badge-ft">✅ Terminé</span>`
-        : `<span class="badge badge-sched">${ts}</span>`;
-
-    let scoreOrVs = (live||done)
-      ? `<div class="score">${hs} – ${as}</div>`
-      : `<div class="vs">vs</div>`;
-
-    let betHtml = '';
-    if (myBet) {
-      const cLabel = myBet.choice==='home'?h:myBet.choice==='away'?a:'Nul';
-      let cls='tag-pending', lbl='⏳ En attente';
+    let betHtml='';
+    if(myBet) {
+      const cLabel=myBet.choice==='home'?h:myBet.choice==='away'?a:'Nul';
+      const cFlag=myBet.choice==='home'?f(h):myBet.choice==='away'?f(a):'🤝';
+      const cote=myBet.choice==='home'?myBet.odds:myBet.choice==='away'?myBet.odds:myBet.odds;
+      let cls='tag-pending',lbl='⏳ En attente';
       if(myBet.result==='won'){cls='tag-won';lbl=`✅ Gagné +${myBet.gain} pts`;}
       if(myBet.result==='lost'){cls='tag-lost';lbl=`❌ Perdu −${myBet.amount} pts`;}
-      betHtml = `<div class="bet-section"><span class="my-bet-tag ${cls}">Ton pari : <strong>${cLabel}</strong> · ${myBet.amount} pts · ${lbl}</span></div>`;
-    } else if (canBet) {
-      betHtml = `<div class="bet-section">
-        <div class="bet-choices">
-          <div class="bet-choice"><input type="radio" name="b${mid}" id="b${mid}h" value="home"><label for="b${mid}h">${f(h)} ${h}</label></div>
-          <div class="bet-choice"><input type="radio" name="b${mid}" id="b${mid}d" value="draw"><label for="b${mid}d">🤝 Nul<br><span class="odds-hint">×2.5</span></label></div>
-          <div class="bet-choice"><input type="radio" name="b${mid}" id="b${mid}a" value="away"><label for="b${mid}a">${f(a)} ${a}</label></div>
+      betHtml=`<div style="border-top:1px solid var(--border);padding-top:12px">
+        <span class="my-bet-tag ${cls}">${cFlag} <strong>${cLabel}</strong> @ ${myBet.odds} · ${myBet.amount} pts · ${lbl}</span>
+      </div>`;
+    } else if(canBet) {
+      const trendH=betsByChoice.home>betsByChoice.away?'🔽':'', trendA=betsByChoice.away>betsByChoice.home?'🔽':'';
+      betHtml=`
+        <div class="odds-info">${totalMises>0?`💬 ${totalMises} pts misés par le cabinet — cotes ajustées`:'Cotes basées classement FIFA · Bougent avec les paris du cabinet'}</div>
+        <div class="odds-row">
+          <div class="odds-btn" id="ob${mid}h" onclick="selectOdds('${mid}','home',this)">
+            <span class="odds-trend">${trendH}</span>
+            <div class="odds-label"><span class="odds-flag">${f(h)}</span> ${h.length>10?h.substring(0,10)+'…':h}</div>
+            <div class="odds-val">${oH.toFixed(2)}</div>
+            <div class="odds-bar"><div class="odds-bar-fill" style="width:${pHpct}%"></div></div>
+          </div>
+          <div class="odds-btn" id="ob${mid}d" onclick="selectOdds('${mid}','draw',this)">
+            <div class="odds-label">🤝 Nul</div>
+            <div class="odds-val">${oD.toFixed(2)}</div>
+            <div class="odds-bar"><div class="odds-bar-fill" style="width:${pDpct}%;background:#BA7517"></div></div>
+          </div>
+          <div class="odds-btn" id="ob${mid}a" onclick="selectOdds('${mid}','away',this)">
+            <span class="odds-trend">${trendA}</span>
+            <div class="odds-label"><span class="odds-flag">${f(a)}</span> ${a.length>10?a.substring(0,10)+'…':a}</div>
+            <div class="odds-val">${oA.toFixed(2)}</div>
+            <div class="odds-bar"><div class="odds-bar-fill" style="width:${pApct}%"></div></div>
+          </div>
         </div>
-        <div class="bet-row-bottom">
-          <input class="bet-amount" type="number" id="amt${mid}" value="50" min="10" max="${user.balance}">
+        <div class="bet-bottom">
+          <input class="bet-amount" type="number" id="amt${mid}" value="50" min="10" max="${user.balance}" oninput="updatePreview('${mid}')">
           <span style="font-size:13px;color:var(--text-sec)">pts</span>
           <button class="btn-bet" onclick="placeBet('${mid}')">Parier</button>
-          <span class="bet-hint">Victoire ×1.9 · Nul ×2.5</span>
-        </div>
-      </div>`;
+          <span class="gain-preview" id="prev${mid}">Sélectionne une cote</span>
+        </div>`;
     } else {
-      betHtml = `<div class="bet-section"><span style="font-size:12px;color:var(--text-hint)">Paris fermés — match terminé</span></div>`;
+      betHtml=`<div style="border-top:1px solid var(--border);padding-top:10px">
+        <div class="odds-row" style="opacity:0.6;pointer-events:none">
+          <div class="odds-btn"><div class="odds-label"><span class="odds-flag">${f(h)}</span> ${h.length>10?h.substring(0,10)+'…':h}</div><div class="odds-val">${oH.toFixed(2)}</div></div>
+          <div class="odds-btn"><div class="odds-label">🤝 Nul</div><div class="odds-val">${oD.toFixed(2)}</div></div>
+          <div class="odds-btn"><div class="odds-label"><span class="odds-flag">${f(a)}</span> ${a.length>10?a.substring(0,10)+'…':a}</div><div class="odds-val">${oA.toFixed(2)}</div></div>
+        </div>
+        <span style="font-size:12px;color:var(--text-hint)">Paris fermés</span>
+      </div>`;
     }
 
-    html += `<div class="match-card">
-      <div class="match-top">
-        <span class="match-meta">${ds} · <span class="badge badge-group">Groupe ${m.group_name||m.round||'?'}</span></span>
-        ${statusBadge}
-      </div>
+    html+=`<div class="match-card">
+      <div class="match-top"><span class="match-meta">${ds} · <span class="badge badge-group">${grp}</span></span>${statusBadge}</div>
       <div class="teams-row">
         <div class="team-block"><div class="team-flag">${f(h)}</div><div class="team-name">${h}</div></div>
         <div class="vs-block">${scoreOrVs}</div>
@@ -358,94 +504,175 @@ function renderMatches() {
       ${betHtml}
     </div>`;
   });
-  document.getElementById('matches-list').innerHTML = html;
+  document.getElementById('matches-list').innerHTML=html;
 }
 
-function showAlert(msg, type) {
-  const z = document.getElementById('alert-zone');
-  z.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
-  setTimeout(()=>z.innerHTML='', 3000);
+let selectedChoice = {}; // mid → choice
+
+function selectOdds(mid, choice, el) {
+  // déselectionne les autres
+  ['h','d','a'].forEach(x=>{ const b=document.getElementById('ob'+mid+x); if(b) b.classList.remove('selected'); });
+  el.classList.add('selected');
+  selectedChoice[mid]=choice;
+  updatePreview(mid);
+}
+
+function updatePreview(mid) {
+  const prev=document.getElementById('prev'+mid); if(!prev) return;
+  const choice=selectedChoice[mid];
+  if(!choice){prev.innerHTML='Sélectionne une cote';return;}
+  const amt=parseInt(document.getElementById('amt'+mid).value)||0;
+  const m=matches.find(x=>String(x.id)===mid); if(!m) return;
+  const odds=dynamicOdds(mid,m.home_team,m.away_team);
+  const cote=choice==='home'?odds.oH:choice==='draw'?odds.oD:odds.oA;
+  const gain=Math.round(amt*cote);
+  prev.innerHTML=`Gain potentiel : <strong>${gain} pts</strong> (×${cote.toFixed(2)})`;
+}
+
+function showAlert(msg,type) {
+  const z=document.getElementById('alert-zone');
+  z.innerHTML=`<div class="alert alert-${type}">${msg}</div>`;
+  setTimeout(()=>z.innerHTML='',3000);
 }
 
 function placeBet(mid) {
-  const user = state.users[state.currentUser];
-  const sel = document.querySelector(`input[name="b${mid}"]:checked`);
-  if (!sel) { showAlert('Choisis un résultat d\'abord !', 'error'); return; }
-  const amt = parseInt(document.getElementById('amt'+mid).value);
-  if (!amt||amt<10) { showAlert('Mise minimum : 10 pts', 'error'); return; }
-  if (amt>user.balance) { showAlert('Solde insuffisant !', 'error'); return; }
-  user.balance -= amt;
-  user.bets[mid] = { choice: sel.value, amount: amt, result: 'pending', gain: 0 };
-  save(); updateBalance();
-  showAlert(`Pari enregistré — ${amt} pts misés !`, 'success');
+  const user=state.users[state.currentUser];
+  const choice=selectedChoice[mid];
+  if(!choice){showAlert('Clique sur une cote d\'abord !','error');return;}
+  const amt=parseInt(document.getElementById('amt'+mid).value);
+  if(!amt||amt<10){showAlert('Mise minimum : 10 pts','error');return;}
+  if(amt>user.balance){showAlert('Solde insuffisant !','error');return;}
+  const m=matches.find(x=>String(x.id)===mid);
+  const odds=dynamicOdds(mid,m.home_team,m.away_team);
+  const cote=choice==='home'?odds.oH:choice==='draw'?odds.oD:odds.oA;
+  user.balance-=amt;
+  user.bets[mid]={choice,amount:amt,odds:cote,result:'pending',gain:0};
+  save(); updateBalance(); showAlert(`Pari enregistré — ${amt} pts @ ${cote.toFixed(2)} !`,'success');
+  delete selectedChoice[mid];
   renderMatches();
 }
 
 function settleAll() {
-  let changed = false;
-  Object.values(state.users).forEach(user => {
-    Object.entries(user.bets).forEach(([mid, bet]) => {
-      if (bet.result!=='pending') return;
-      const m = matches.find(x=>String(x.id)===mid);
-      if (!m||!isDone(m)||m.home_score==null) return;
-      const actual = m.home_score>m.away_score?'home':m.away_score>m.home_score?'away':'draw';
-      if (bet.choice===actual) {
-        const mult = bet.choice==='draw'?2.5:1.9;
-        bet.gain = Math.round(bet.amount*mult);
-        user.balance += bet.gain; bet.result = 'won';
-      } else { bet.result = 'lost'; }
-      changed = true;
+  let changed=false;
+  Object.values(state.users).forEach(user=>{
+    Object.entries(user.bets).forEach(([mid,bet])=>{
+      if(bet.result!=='pending') return;
+      const m=matches.find(x=>String(x.id)===mid);
+      if(!m||!isDone(m)||m.home_score==null) return;
+      const actual=m.home_score>m.away_score?'home':m.away_score>m.home_score?'away':'draw';
+      if(bet.choice===actual){bet.gain=Math.round(bet.amount*bet.odds);user.balance+=bet.gain;bet.result='won';}
+      else{bet.result='lost';}
+      changed=true;
     });
   });
-  if (changed) { save(); updateBalance(); }
+  if(changed){save();updateBalance();}
 }
 
 function renderMyBets() {
-  const user = state.users[state.currentUser];
-  const bets = Object.entries(user.bets).reverse();
-  if (!bets.length) { document.getElementById('mybets-list').innerHTML = '<div class="empty">Tu n\'as pas encore de paris</div>'; return; }
-  let html = '';
-  bets.forEach(([mid, bet]) => {
-    const m = matches.find(x=>String(x.id)===mid);
-    if (!m) return;
-    const cLabel = bet.choice==='home'?m.home_team:bet.choice==='away'?m.away_team:'Nul';
-    let cls='tag-pending', lbl='⏳ En attente';
+  const user=state.users[state.currentUser]; if(!user){document.getElementById('mybets-list').innerHTML='<div class="empty">Non disponible</div>';return;}
+  const bets=Object.entries(user.bets).reverse();
+  if(!bets.length){document.getElementById('mybets-list').innerHTML='<div class="empty">Aucun pari pour l\'instant</div>';return;}
+  let html='';
+  bets.forEach(([mid,bet])=>{
+    const m=matches.find(x=>String(x.id)===mid); if(!m) return;
+    const cLabel=bet.choice==='home'?m.home_team:bet.choice==='away'?m.away_team:'Nul';
+    const cFlag=bet.choice==='home'?f(m.home_team):bet.choice==='away'?f(m.away_team):'🤝';
+    let cls='tag-pending',lbl='⏳ En attente';
     if(bet.result==='won'){cls='tag-won';lbl=`✅ Gagné +${bet.gain} pts`;}
     if(bet.result==='lost'){cls='tag-lost';lbl=`❌ Perdu −${bet.amount} pts`;}
-    html += `<div class="bet-item">
-      <div style="font-size:14px;font-weight:600;margin-bottom:6px;">${f(m.home_team)} ${m.home_team} vs ${f(m.away_team)} ${m.away_team}</div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-        <span style="font-size:13px;color:var(--text-sec)">Pronostic : <strong>${cLabel}</strong></span>
-        <span style="font-size:13px;color:var(--text-sec)">Mise : <strong>${bet.amount} pts</strong></span>
+    const cote=bet.odds?`@ ${Number(bet.odds).toFixed(2)}`:'';
+    html+=`<div class="bet-item">
+      <div style="font-size:14px;font-weight:600;margin-bottom:6px">${f(m.home_team)} ${m.home_team} vs ${f(m.away_team)} ${m.away_team}</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <span style="font-size:13px;color:var(--text-sec)">Pronostic : <strong>${cFlag} ${cLabel}</strong></span>
+        <span style="font-size:13px;color:var(--text-sec)">Mise : <strong>${bet.amount} pts</strong> ${cote}</span>
         <span class="my-bet-tag ${cls}">${lbl}</span>
       </div>
     </div>`;
   });
-  document.getElementById('mybets-list').innerHTML = html||'<div class="empty">Aucun pari</div>';
+  document.getElementById('mybets-list').innerHTML=html||'<div class="empty">Aucun pari</div>';
 }
 
 function renderRanking() {
-  const entries = Object.entries(state.users)
-    .map(([name,u])=>({name,balance:u.balance,nb:Object.keys(u.bets).length}))
+  const entries=Object.entries(state.users).filter(([n])=>n!=='__admin__')
+    .map(([name,u])=>({name,balance:u.balance,nb:Object.keys(u.bets).length,
+      won:Object.values(u.bets).filter(b=>b.result==='won').length}))
     .sort((a,b)=>b.balance-a.balance);
-  if (!entries.length) { document.getElementById('ranking-list').innerHTML = '<div class="empty">Personne encore inscrit</div>'; return; }
-  let html = `<table class="rank-table"><thead><tr><th>#</th><th>Joueur</th><th>Paris</th><th>Solde</th></tr></thead><tbody>`;
+  if(!entries.length){document.getElementById('ranking-list').innerHTML='<div class="empty">Personne encore inscrit</div>';return;}
+  let html=`<table class="rank-table"><thead><tr><th>#</th><th>Joueur</th><th>Paris</th><th>✅ Gagnés</th><th>Solde</th></tr></thead><tbody>`;
   entries.forEach((e,i)=>{
-    const me = e.name===state.currentUser;
-    const medal = ['🥇','🥈','🥉'][i]||String(i+1);
+    const me=e.name===state.currentUser;
+    const medal=['🥇','🥈','🥉'][i]||String(i+1);
     html+=`<tr class="${me?'rank-me':''}">
       <td style="font-weight:600">${medal}</td>
       <td style="font-weight:${me?600:400}">${e.name}${me?' 👈':''}</td>
       <td style="color:var(--text-sec)">${e.nb}</td>
+      <td style="color:#3B6D11">${e.won}</td>
       <td class="rank-balance">${e.balance} pts</td>
     </tr>`;
   });
-  html += '</tbody></table>';
-  document.getElementById('ranking-list').innerHTML = html;
+  html+='</tbody></table>';
+  document.getElementById('ranking-list').innerHTML=html;
+}
+
+// ── ADMIN ──────────────────────────────────────────────────────────────────────
+function renderAdmin() {
+  const players=Object.entries(state.users).filter(([n])=>n!=='__admin__');
+  const sel=document.getElementById('bonus-target');
+  sel.innerHTML='<option value="all">Tous les joueurs</option>';
+  players.forEach(([n])=>{ const o=document.createElement('option'); o.value=n; o.textContent=n; sel.appendChild(o); });
+  if(!players.length){document.getElementById('admin-players-list').innerHTML='<div class="empty">Aucun joueur inscrit</div>';return;}
+  let html='';
+  players.sort((a,b)=>b[1].balance-a[1].balance).forEach(([name,u])=>{
+    const won=Object.values(u.bets).filter(b=>b.result==='won').length;
+    const total=Object.keys(u.bets).length;
+    html+=`<div class="admin-row">
+      <div class="admin-player">
+        <div class="admin-avatar">${name[0].toUpperCase()}</div>
+        <div><div style="font-weight:600;font-size:14px">${name}</div>
+        <div style="font-size:12px;color:var(--text-sec)">${total} paris · ${won} gagnés</div></div>
+      </div>
+      <div class="admin-controls">
+        <input class="admin-bal-input" type="number" id="newbal-${name}" value="${u.balance}" min="0">
+        <button class="btn-admin-save" onclick="saveBalance('${name}')">💾</button>
+        <button class="btn-admin-reset" onclick="resetPlayer('${name}')">↩ Reset</button>
+        <button class="btn-admin-del" onclick="deletePlayer('${name}')">🗑️</button>
+      </div>
+    </div>`;
+  });
+  document.getElementById('admin-players-list').innerHTML=html;
+}
+
+function saveBalance(name) {
+  const v=parseInt(document.getElementById('newbal-'+name).value);
+  if(isNaN(v)||v<0){adminAlert('Valeur invalide','error');return;}
+  state.users[name].balance=v; save(); renderAdmin(); adminAlert(`✅ Solde de ${name} → ${v} pts`,'success');
+}
+function resetPlayer(name) {
+  if(!confirm(`Remettre ${name} à 1000 pts et effacer ses paris ?`)) return;
+  state.users[name]={balance:1000,bets:{}}; save(); renderAdmin(); adminAlert(`↩ ${name} réinitialisé`,'success');
+}
+function deletePlayer(name) {
+  if(!confirm(`Supprimer définitivement ${name} ?`)) return;
+  delete state.users[name]; save(); renderAdmin(); adminAlert(`🗑️ ${name} supprimé`,'success');
+}
+function applyBonus() {
+  const amt=parseInt(document.getElementById('bonus-amount').value);
+  if(!amt||amt<1){adminAlert('Montant invalide','error');return;}
+  const target=document.getElementById('bonus-target').value;
+  let count=0;
+  Object.entries(state.users).forEach(([n,u])=>{ if(n==='__admin__') return; if(target==='all'||target===n){u.balance+=amt;count++;} });
+  save(); renderAdmin(); adminAlert(`🎁 +${amt} pts → ${count} joueur(s)`,'success');
+}
+function adminAlert(msg,type) {
+  const z=document.getElementById('admin-alert');
+  z.innerHTML=`<div class="alert alert-${type}">${msg}</div>`;
+  setTimeout(()=>z.innerHTML='',3500);
 }
 
 load();
-if (state.currentUser && state.users[state.currentUser]) showMain();
+if(state.currentUser==='__admin__') enterAdmin();
+else if(state.currentUser&&state.users[state.currentUser]) { isAdmin=false; showMain(); }
 </script>
 </body>
 </html>
