@@ -53,6 +53,7 @@
   .teams-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
   .team-block { flex: 1; text-align: center; }
   .team-flag { font-size: 38px; line-height: 1.2; }
+  .team-flag img { width: 56px; height: 42px; border-radius: 4px; object-fit: cover; }
   .team-name { font-size: 12px; font-weight: 600; margin-top: 4px; color: var(--text-sec); }
   .vs-block { text-align: center; min-width: 64px; }
   .vs-block .score { font-size: 26px; font-weight: 800; }
@@ -221,22 +222,29 @@ const FIFA_RANK = {
   'Bosnia & Herzegovina':35,'Bosnia-Herzegovina':35,'Bosnia and Herzegovina':35,
 };
 
-const FLAGS = {
-  'Mexico':'🇲🇽','South Africa':'🇿🇦','South Korea':'🇰🇷','Czechia':'🇨🇿','Czech Republic':'🇨🇿',
-  'Poland':'🇵🇱','Saudi Arabia':'🇸🇦','Argentina':'🇦🇷','Japan':'🇯🇵','Sweden':'🇸🇪',
-  'Morocco':'🇲🇦','Portugal':'🇵🇹','USA':'🇺🇸','United States':'🇺🇸','Panama':'🇵🇦',
-  'Bolivia':'🇧🇴','Australia':'🇦🇺','Spain':'🇪🇸','Cameroon':'🇨🇲','Ukraine':'🇺🇦',
-  'Netherlands':'🇳🇱','Iraq':'🇮🇶','Colombia':'🇨🇴','Costa Rica':'🇨🇷','Slovakia':'🇸🇰',
-  'Brazil':'🇧🇷','Congo DR':'🇨🇩','England':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Senegal':'🇸🇳','Serbia':'🇷🇸',
-  'Turkey':'🇹🇷','Canada':'🇨🇦','Denmark':'🇩🇰','China':'🇨🇳','Uzbekistan':'🇺🇿',
-  'France':'🇫🇷','Norway':'🇳🇴','Italy':'🇮🇹','Ecuador':'🇪🇨','Germany':'🇩🇪',
-  "Curaçao":'🇨🇼',"Côte d'Ivoire":'🇨🇮','Ivory Coast':'🇨🇮','Belgium':'🇧🇪','Egypt':'🇪🇬','Iran':'🇮🇷',
-  'New Zealand':'🇳🇿','Croatia':'🇭🇷','Chile':'🇨🇱','Nigeria':'🇳🇬','Uruguay':'🇺🇾',
-  'Switzerland':'🇨🇭','Venezuela':'🇻🇪','Paraguay':'🇵🇾','Peru':'🇵🇪','Kenya':'🇰🇪',
-  'Ghana':'🇬🇭','Algeria':'🇩🇿','Tunisia':'🇹🇳',
-  'Bosnia & Herzegovina':'🇧🇦','Bosnia-Herzegovina':'🇧🇦','Bosnia and Herzegovina':'🇧🇦',
+// Codes ISO2 pour flagcdn.com
+const FLAG_CODES = {
+  'Mexico':'mx','South Africa':'za','South Korea':'kr','Czechia':'cz','Czech Republic':'cz',
+  'Poland':'pl','Saudi Arabia':'sa','Argentina':'ar','Japan':'jp','Sweden':'se',
+  'Morocco':'ma','Portugal':'pt','USA':'us','United States':'us','Panama':'pa',
+  'Bolivia':'bo','Australia':'au','Spain':'es','Cameroon':'cm','Ukraine':'ua',
+  'Netherlands':'nl','Iraq':'iq','Colombia':'co','Costa Rica':'cr','Slovakia':'sk',
+  'Brazil':'br','Congo DR':'cd','England':'gb-eng','Senegal':'sn','Serbia':'rs',
+  'Turkey':'tr','Canada':'ca','Denmark':'dk','China':'cn','Uzbekistan':'uz',
+  'France':'fr','Norway':'no','Italy':'it','Ecuador':'ec','Germany':'de',
+  "Curaçao":'cw',"Côte d'Ivoire":'ci','Ivory Coast':'ci','Belgium':'be','Egypt':'eg','Iran':'ir',
+  'New Zealand':'nz','Croatia':'hr','Chile':'cl','Nigeria':'ng','Uruguay':'uy',
+  'Switzerland':'ch','Venezuela':'ve','Paraguay':'py','Peru':'pe','Kenya':'ke',
+  'Ghana':'gh','Algeria':'dz','Tunisia':'tn',
+  'Bosnia & Herzegovina':'ba','Bosnia-Herzegovina':'ba','Bosnia and Herzegovina':'ba',
 };
-const f = n => FLAGS[n] || '🏳️';
+// Retourne une balise <img> drapeau, avec fallback texte
+function f(name, size) {
+  const sz = size || 32;
+  const code = FLAG_CODES[name];
+  if (!code) return '🏳️';
+  return `<img src="https://flagcdn.com/${sz}x${Math.round(sz*0.75)}/${code}.png" alt="${name}" style="width:${sz}px;height:${Math.round(sz*0.75)}px;border-radius:3px;object-fit:cover;vertical-align:middle" onerror="this.replaceWith('🏳️')">`;
+}
 const rank = n => FIFA_RANK[n] || 40;
 
 // ── CALCUL DES COTES ──────────────────────────────────────────────────────────
@@ -334,7 +342,8 @@ function convertMatch(m, idx) {
 function doLogin() {
   const raw = document.getElementById('login-input').value.trim();
   if (!raw) return;
-  if (raw === ADMIN_PWD) { enterAdmin(); return; }
+  // Vérif admin AVANT normalisation (insensible à la casse)
+  if (raw.toUpperCase() === ADMIN_PWD.toUpperCase()) { enterAdmin(); return; }
   const name = norm(raw);
   if (!state.users[name]) state.users[name] = { balance:1000, bets:{} };
   state.currentUser = name; isAdmin = false; save(); showMain();
@@ -461,7 +470,7 @@ function renderMatches() {
         <div class="odds-row">
           <div class="odds-btn" id="ob${mid}h" onclick="selectOdds('${mid}','home',this)">
             <span class="odds-trend">${trendH}</span>
-            <div class="odds-label"><span class="odds-flag">${f(h)}</span> ${h.length>10?h.substring(0,10)+'…':h}</div>
+            <div class="odds-label"><span class="odds-flag">${f(h,20)}</span> ${h.length>10?h.substring(0,10)+'…':h}</div>
             <div class="odds-val">${oH.toFixed(2)}</div>
             <div class="odds-bar"><div class="odds-bar-fill" style="width:${pHpct}%"></div></div>
           </div>
@@ -472,7 +481,7 @@ function renderMatches() {
           </div>
           <div class="odds-btn" id="ob${mid}a" onclick="selectOdds('${mid}','away',this)">
             <span class="odds-trend">${trendA}</span>
-            <div class="odds-label"><span class="odds-flag">${f(a)}</span> ${a.length>10?a.substring(0,10)+'…':a}</div>
+            <div class="odds-label"><span class="odds-flag">${f(a,20)}</span> ${a.length>10?a.substring(0,10)+'…':a}</div>
             <div class="odds-val">${oA.toFixed(2)}</div>
             <div class="odds-bar"><div class="odds-bar-fill" style="width:${pApct}%"></div></div>
           </div>
@@ -486,9 +495,9 @@ function renderMatches() {
     } else {
       betHtml=`<div style="border-top:1px solid var(--border);padding-top:10px">
         <div class="odds-row" style="opacity:0.6;pointer-events:none">
-          <div class="odds-btn"><div class="odds-label"><span class="odds-flag">${f(h)}</span> ${h.length>10?h.substring(0,10)+'…':h}</div><div class="odds-val">${oH.toFixed(2)}</div></div>
+          <div class="odds-btn"><div class="odds-label"><span class="odds-flag">${f(h,20)}</span> ${h.length>10?h.substring(0,10)+'…':h}</div><div class="odds-val">${oH.toFixed(2)}</div></div>
           <div class="odds-btn"><div class="odds-label">🤝 Nul</div><div class="odds-val">${oD.toFixed(2)}</div></div>
-          <div class="odds-btn"><div class="odds-label"><span class="odds-flag">${f(a)}</span> ${a.length>10?a.substring(0,10)+'…':a}</div><div class="odds-val">${oA.toFixed(2)}</div></div>
+          <div class="odds-btn"><div class="odds-label"><span class="odds-flag">${f(a,20)}</span> ${a.length>10?a.substring(0,10)+'…':a}</div><div class="odds-val">${oA.toFixed(2)}</div></div>
         </div>
         <span style="font-size:12px;color:var(--text-hint)">Paris fermés</span>
       </div>`;
@@ -497,9 +506,9 @@ function renderMatches() {
     html+=`<div class="match-card">
       <div class="match-top"><span class="match-meta">${ds} · <span class="badge badge-group">${grp}</span></span>${statusBadge}</div>
       <div class="teams-row">
-        <div class="team-block"><div class="team-flag">${f(h)}</div><div class="team-name">${h}</div></div>
+        <div class="team-block"><div class="team-flag">${f(h,48)}</div><div class="team-name">${h}</div></div>
         <div class="vs-block">${scoreOrVs}</div>
-        <div class="team-block"><div class="team-flag">${f(a)}</div><div class="team-name">${a}</div></div>
+        <div class="team-block"><div class="team-flag">${f(a,48)}</div><div class="team-name">${a}</div></div>
       </div>
       ${betHtml}
     </div>`;
@@ -576,13 +585,13 @@ function renderMyBets() {
   bets.forEach(([mid,bet])=>{
     const m=matches.find(x=>String(x.id)===mid); if(!m) return;
     const cLabel=bet.choice==='home'?m.home_team:bet.choice==='away'?m.away_team:'Nul';
-    const cFlag=bet.choice==='home'?f(m.home_team):bet.choice==='away'?f(m.away_team):'🤝';
+    const cFlag=bet.choice==='home'?f(m.home_team,20):bet.choice==='away'?f(m.away_team,20):'🤝';
     let cls='tag-pending',lbl='⏳ En attente';
     if(bet.result==='won'){cls='tag-won';lbl=`✅ Gagné +${bet.gain} pts`;}
     if(bet.result==='lost'){cls='tag-lost';lbl=`❌ Perdu −${bet.amount} pts`;}
     const cote=bet.odds?`@ ${Number(bet.odds).toFixed(2)}`:'';
     html+=`<div class="bet-item">
-      <div style="font-size:14px;font-weight:600;margin-bottom:6px">${f(m.home_team)} ${m.home_team} vs ${f(m.away_team)} ${m.away_team}</div>
+      <div style="font-size:14px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px">${f(m.home_team,20)} ${m.home_team} vs ${f(m.away_team,20)} ${m.away_team}</div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <span style="font-size:13px;color:var(--text-sec)">Pronostic : <strong>${cFlag} ${cLabel}</strong></span>
         <span style="font-size:13px;color:var(--text-sec)">Mise : <strong>${bet.amount} pts</strong> ${cote}</span>
